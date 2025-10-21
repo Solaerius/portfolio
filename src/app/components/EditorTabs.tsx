@@ -33,6 +33,36 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                         }
                         >{t}.tsx</button>
                 ))}
+                <div className="flex-1 border-b border-zinc-800"/>
+            </div>
+
+            <div className="border border-zinc-800 rouded-b-xl rounded-tr-xl bg-zinc-950/60">
+                <AnimatePresence mode="wait">
+                    {tab === "about" && (
+                        <motion.div
+                            key="about"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3}}
+                            className="p-6 text-zinc-300"
+                        >
+                            <p className="text-lg leading-relaxed">
+                                I'm Eddie, a software engineer who loves building interactive 
+                                systems, smooth UIs, and data-driven tools. I enjoy creating 
+                                experiences that feel alive, expressive, and performant.
+                            </p>
+
+                            <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                                {/* Will be added when techlist function has been created:
+                                <TechList title="Languages" items={["TypeScript", "Java", "Python", "C#"]} />
+                                TechList title="Frameworks" items={["Next.js", "React"]} />
+                                TechList title="Tools" items={["Tailwind", "Framer Motion", "Git"]} />
+                                TechList title="Focus" items={["UX polish", "Real-Time data", "Performance", "Interactivity"]} /> */}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )
