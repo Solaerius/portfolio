@@ -62,6 +62,65 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             </div>
                         </motion.div>
                     )}
+
+                    {tab === "projects" && (
+                        <motion.div
+                            key="projects"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="p-6 grid md:grid-cols-2 gap-6"
+                        >
+                        {PROJECTS.map((p, i) => (
+                            <motion.div
+                                key={p.title}
+                                initial={{ opacity: 0, y: 8 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.3, delay: i * 0.05 }}
+                                className="group rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 hover:shadow-lg hover:shadow-black/30"
+                            >
+                            <h3 className="text-lg font-semibold text-zinc-100">{p.title}</h3>
+                            <p className="text-zinc-300 mt-2">{p.description}</p>
+
+                            <div className="flex flex-warp gap-2 mt-3">
+                                {p.stack.map((s) => (
+                                    <span
+                                        key={s}
+                                        className="text-[11] px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
+                                    >
+                                        {s}
+                                    </span>
+                                ))}
+                            </div>
+                            </motion.div>
+                        ))}
+                        
+                        </motion.div>
+                    )}
+                    {tab === "contact" && (
+                        <motion.div
+                             key="contact"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.3 }}
+                            className="p-6"
+                        >
+                            <p className="text-zinc-300 mb.4">
+                                Want to collaborate or just say hi?
+                            </p>
+                            <a
+                                href="mailto:eddie@ervenius.com"
+                                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-zinc-800 hover:bg-zinc-800/60"
+                            >
+                                eddie@ervenius.com
+                            </a>
+                        </motion.div>
+                    )}
+
+
                 </AnimatePresence>
             </div>
         </div>
