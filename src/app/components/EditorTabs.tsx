@@ -126,3 +126,26 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
         </div>
     )
 }
+
+function TechList({ title, items }: { title:string; items:string[]}) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y:10 }}
+            whileInView={{ opacity: 1, y:0 }}
+            viewport={{ once:true, amount:0.3 }}
+            transition={{ duration:0.4 }}
+        >
+            <h4 className="text-zinc-200 font-semibold text-sm tracking-wide">{title}</h4>
+            <ul className="mt-2 flex flex-wrap gap-2">
+                {items.map((x) => (
+                    <li
+                     key={x}
+                     className="text-xs px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
+                    >
+                        {x}
+                    </li>
+                ))}
+            </ul>
+        </motion.div>
+    );
+}
