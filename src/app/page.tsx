@@ -17,11 +17,30 @@ export default function Page() {
             <div className="w-2.5 h-2.5 rounded full bg-emerald-400 animate-pulse"/>
             <span className="font-mono text-sm text-zinc-300"> ~/eddie/dev-console</span>
           </div>
-          
+
           {/* command palatte */}
           <div className="absolute left-1/2 -translate-x-1/2 w-[260px] sm:w-[340px]"></div>
         </div>
       </header>
+
+      <main className="relative z-10 px-4 pt-10 pb-28">
+        {/* will be added later, Hero.tsx and EditorTabs.tsx
+        <Hero 
+          name="Eddie Ervenius"
+          role="Software Engineer"
+          tagline="building immersive, data-driven experiences"
+        />
+        <EditorTabs externalTab={tab} onTabChange={setTab} />
+        */}
+      </main>
+
+      {/* will also be added later, StatusBar.tsx
+      <StatusBar
+        city={city}
+        githubUser={githubUser}
+        availabilityText={availability}
+      />
+      */}
     </div>
-  )
+  );
 }
