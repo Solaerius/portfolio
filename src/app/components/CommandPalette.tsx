@@ -56,30 +56,23 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
       <AnimatePresence>
         {open && (
           <>
-            {/* ✨ True background blur overlay */}
             <motion.div
-              className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300"
+              className="fixed inset-0 z-[90] bg-black/30 backdrop-filter backdrop-blur-2xl backdrop-saturate-150 transition-opacity duration-300"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
-
-            {/* Modal centered */}
             <motion.div
-              className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="fixed top-[30px] left-1/2 -translate-x-1/2 z-[100] w-full max-w-xl"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ type: "spring", stiffness: 250, damping: 20 }}
             >
               <motion.div
                 ref={overlayRef}
-                initial={{ scale: 0.9, opacity: 0, y: 40 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.9, opacity: 0, y: 40 }}
-                transition={{ type: "spring", stiffness: 260, damping: 25 }}
-                className="w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-950/90 shadow-2xl overflow-hidden"
+                className="rounded-2xl border border-zinc-800 bg-zinc-950/90 shadow-2xl overflow-hidden"
               >
-                {/* Input bar */}
                 <div className="px-5 py-3 border-b border-zinc-800 flex items-center">
                   <TerminalSquare className="w-4 h-4 text-zinc-500 mr-3" />
                   <input
@@ -92,7 +85,6 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
                   />
                 </div>
 
-                {/* Command list */}
                 <div className="max-h-80 overflow-y-auto">
                   {filtered.length > 0 ? (
                     filtered.map((cmd) => (

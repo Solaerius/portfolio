@@ -14,7 +14,7 @@ export default function Page() {
   const availability = " Available for freelance work";
 
   return (
-    <div className="min-h-[100vh] bg-zinc-950 text-zinc-100 selection:bg-emerald-500/30 selection:text-emerald-50">
+    <div className="relative min-h-screen bg-zinc-950 text-zinc-100 overflow-visible">
       <header className="sticky top-0 z-30 backdrop-blur bg-zinc-950/60 border-b border-zinc-900">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3 relative">
           {/* Left side */}
