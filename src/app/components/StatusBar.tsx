@@ -23,7 +23,6 @@ export default function StatusBar({ city, githubUser, availabilityText }: { city
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-1">
           <Clock className="w-4 h-4" />
-          {/* Only render the clock after hydration */}
           {hydrated && <span className="tabular-nums">{hhmmss}</span>}
         </div>
         <div className="flex items-center gap-1 min-w-[120px]">

@@ -176,7 +176,6 @@ export default function EditorTabs({
     );
 }
 
-// Reusable TechList component
 function TechList({ title, items }: { title: string; items: string[] }) {
     return (
         <motion.div

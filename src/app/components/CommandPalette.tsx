@@ -15,7 +15,6 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
 
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  // Close when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -30,7 +29,6 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
 
-  // Close on Enter
   useEffect(() => {
     function handleEnter(e: KeyboardEvent) {
       if (open && e.key === "Enter") setOpen(false);
