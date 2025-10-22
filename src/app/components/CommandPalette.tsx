@@ -15,7 +15,7 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
 
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
-  // Close palette when clicking outside
+  // Close when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (
@@ -41,7 +41,6 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
 
   return (
     <>
-      {/* Inline bar in header */}
       {!open && (
         <div
           onClick={() => setOpen(true)}
@@ -54,50 +53,72 @@ export default function CommandPalette({ onCommand }: CommandPaletteProps) {
         </div>
       )}
 
-      {/* Popup modal */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-start justify-center p-6 bg-black/60 backdrop-blur"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
+          <>
+            {/* ✨ True background blur overlay */}
             <motion.div
-              ref={overlayRef}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 20, opacity: 0 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-              className="w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-950 shadow-xl"
+              className="fixed inset-0 z-[9998] bg-black/50 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Modal centered */}
+            <motion.div
+              className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <div className="px-4 py-3 border-b border-zinc-800 flex items-center">
-                <TerminalSquare className="w-4 h-4 text-zinc-500 mr-2" />
-                <input
-                  ref={inputRef}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Type a command… (about, projects, contact, github, resume)"
-                  className="w-full bg-transparent outline-none text-zinc-200 placeholder:text-zinc-500"
-                />
-              </div>
-              <div className="max-h-80 overflow-y-auto">
-                {filtered.map((cmd) => (
-                  <button
-                    key={cmd.id}
-                    onClick={() => run(cmd)}
-                    className="w-full text-left px-4 py-3 hover:bg-zinc-900 flex items-center gap-3"
-                  >
-                    <TerminalSquare className="w-4 h-4 text-zinc-400" />
-                    <div className="flex-1">
-                      <div className="text-zinc-100">{cmd.label}</div>
-                      <div className="text-xs text-zinc-500">{cmd.hint}</div>
+              <motion.div
+                ref={overlayRef}
+                initial={{ scale: 0.9, opacity: 0, y: 40 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: 40 }}
+                transition={{ type: "spring", stiffness: 260, damping: 25 }}
+                className="w-full max-w-xl rounded-2xl border border-zinc-800 bg-zinc-950/90 shadow-2xl overflow-hidden"
+              >
+                {/* Input bar */}
+                <div className="px-5 py-3 border-b border-zinc-800 flex items-center">
+                  <TerminalSquare className="w-4 h-4 text-zinc-500 mr-3" />
+                  <input
+                    ref={inputRef}
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Type a command… (about, projects, contact, github, resume)"
+                    className="w-full bg-transparent outline-none text-zinc-100 placeholder:text-zinc-500 text-base leading-6"
+                    autoFocus
+                  />
+                </div>
+
+                {/* Command list */}
+                <div className="max-h-80 overflow-y-auto">
+                  {filtered.length > 0 ? (
+                    filtered.map((cmd) => (
+                      <button
+                        key={cmd.id}
+                        onClick={() => run(cmd)}
+                        className="w-full text-left px-5 py-3 hover:bg-zinc-900/70 transition flex items-center gap-3"
+                      >
+                        <TerminalSquare className="w-4 h-4 text-zinc-400" />
+                        <div className="flex-1">
+                          <div className="text-zinc-100">{cmd.label}</div>
+                          <div className="text-xs text-zinc-500">
+                            {cmd.hint}
+                          </div>
+                        </div>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-5 py-4 text-zinc-500 text-sm">
+                      No matching commands
                     </div>
-                  </button>
-                ))}
-              </div>
+                  )}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
