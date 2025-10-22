@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Hero from "./components/Hero";
 import EditorTabs from "./components/EditorTabs";
+import StatusBar from "./components/StatusBar";
 
 export default function Page() {
   const [tab, setTab] = useState("about");
@@ -36,13 +37,12 @@ export default function Page() {
         
       </main>
 
-      {/* will also be added later, StatusBar.tsx
+      
       <StatusBar
         city={city}
         githubUser={githubUser}
         availabilityText={availability}
       />
-      */}
     </div>
   );
 }
