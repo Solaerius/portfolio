@@ -54,11 +54,11 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             </p>
 
                             <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                                {/* Will be added when techlist function has been created:
+                                
                                 <TechList title="Languages" items={["TypeScript", "Java", "Python", "C#"]} />
-                                TechList title="Frameworks" items={["Next.js", "React"]} />
-                                TechList title="Tools" items={["Tailwind", "Framer Motion", "Git"]} />
-                                TechList title="Focus" items={["UX polish", "Real-Time data", "Performance", "Interactivity"]} /> */}
+                                <TechList title="Frameworks" items={["Next.js", "React"]} />
+                                <TechList title="Tools" items={["Tailwind", "Framer Motion", "Git"]} />
+                                <TechList title="Focus" items={["UX polish", "Real-Time data", "Performance", "Interactivity"]} />
                             </div>
                         </motion.div>
                     )}
@@ -101,7 +101,7 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                     )}
                     {tab === "contact" && (
                         <motion.div
-                             key="contact"
+                            key="contact"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}

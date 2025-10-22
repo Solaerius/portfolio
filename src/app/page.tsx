@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Hero from "./components/Hero";
+import EditorTabs from "./components/EditorTabs";
 
 export default function Page() {
   const [tab, setTab] = useState("about");
@@ -24,15 +25,15 @@ export default function Page() {
       </header>
 
       <main className="relative z-10 px-4 pt-10 pb-28">
-        {
+        
         <Hero 
           name="Eddie Ervenius"
           role="Software Engineer"
           tagline="building immersive, data-driven experiences"
         />
-        /* will be added later, EditorTabs.tsx
+        
         <EditorTabs externalTab={tab} onTabChange={setTab} />
-        */}
+        
       </main>
 
       {/* will also be added later, StatusBar.tsx
