@@ -40,7 +40,7 @@ export default function useGithub(username: string) {
                     setState({
                         followers: null,
                         publicRepos: null,
-                        stars: null;
+                        stars: null,
                         loading: false,
                         error: e?.message || "github error",
                     });
