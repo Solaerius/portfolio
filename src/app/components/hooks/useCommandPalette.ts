@@ -26,7 +26,7 @@ export default function useCommandPalette(onRun?: (section: string) => void) {
     function onKey(e: KeyboardEvent) {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        setOpen(true); 
+        setOpen(true); // always open, never toggle
       }
     }
     window.addEventListener("keydown", onKey);

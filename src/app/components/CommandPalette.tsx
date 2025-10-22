@@ -1,43 +1,47 @@
 "use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Command, TerminalSquare } from "lucide-react";
-import { useEffect, useEffectEvent, useRef } from "react";
+import { useEffect, useRef } from "react";
 import useCommandPalette from "./hooks/useCommandPalette";
 
-interface CommandPalatteProps {
-    onCommand?: (section: string) => void;
+interface CommandPaletteProps {
+  onCommand?: (section: string) => void;
 }
 
-export default function CommandPalatte({ onCommand }: CommandPalatteProps) {
-    const { open, setOpen, query, setQuery, inputRef, filtered, run } = 
-        useCommandPalette(onCommand);
+export default function CommandPalette({ onCommand }: CommandPaletteProps) {
+  const { open, setOpen, query, setQuery, inputRef, filtered, run } =
+    useCommandPalette(onCommand);
 
-    const overlayRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
-    useEffect(() => {
-        function handleClickOutside(e: MouseEvent) {
-            if (
-                open &&
-                overlayRef.current &&
-                !overlayRef.current.contains(e.target as Node)
-            ) {
-                setOpen(false);
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [open]);
+  // Close palette when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        open &&
+        overlayRef.current &&
+        !overlayRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
 
-    useEffect(() => {
-        function handleEnter(e: KeyboardEvent) {
-            if (open && e.key === "Enter") setOpen(false);
-        }
-        window.addEventListener("keydown", handleEnter);
-        return () => window.removeEventListener("keydown", handleEnter);
-    }, [open]);
+  // Close on Enter
+  useEffect(() => {
+    function handleEnter(e: KeyboardEvent) {
+      if (open && e.key === "Enter") setOpen(false);
+    }
+    window.addEventListener("keydown", handleEnter);
+    return () => window.removeEventListener("keydown", handleEnter);
+  }, [open]);
 
-    return (
+  return (
     <>
+      {/* Inline bar in header */}
       {!open && (
         <div
           onClick={() => setOpen(true)}
@@ -49,6 +53,8 @@ export default function CommandPalatte({ onCommand }: CommandPalatteProps) {
           </span>
         </div>
       )}
+
+      {/* Popup modal */}
       <AnimatePresence>
         {open && (
           <motion.div

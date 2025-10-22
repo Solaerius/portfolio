@@ -1,14 +1,46 @@
 "use client";
+
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, FC } from "react";
-import { Mail, Github, ExternalLink } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const PROJECTS = [
-    { title: "Tears of Iron — Strategy Game", description: "...", stack: ["Lua", "Roblox", "OOP", "DataStore"], github: "...", stars: 48 },
+    {
+        title: "Tears of Iron — Strategy Game",
+        description:
+            "Turn-based modern military strategy in Roblox Studio. Permanent map effects, faction control, systems design.",
+        stack: ["Lua", "Roblox", "OOP", "DataStore"],
+        github: "https://github.com/solaerius",
+        stars: 48,
+    },
+    {
+        title: "Alt Look — Minecraft Forge Mod",
+        description:
+            "Client-side free-look ala Rust. Toggles third-person F5 while holding a key.",
+        stack: ["Java", "Forge 1.16.5", "Mojang mappings"],
+        github: "https://github.com/solaerius",
+        stars: 73,
+    },
+    {
+        title: "Soundboard Pro — Python",
+        description:
+            "CustomTkinter + pygame mixer. Device routing (VB-Cable), JSON settings, loop/multi mode.",
+        stack: ["Python", "customtkinter", "pygame", "JSON"],
+        github: "https://github.com/solaerius",
+        stars: 102,
+    },
 ];
 
-export default function EditorTabs({externalTab, onTabChange}: {externalTab?: string; onTabChange?: (tab:string) => void; }) {
-    const [tab, setTab] = useState<"about" | "projects" | "contact">((externalTab as any) || "about");
+export default function EditorTabs({
+    externalTab,
+    onTabChange,
+}: {
+    externalTab?: string;
+    onTabChange?: (tab: string) => void;
+}) {
+    const [tab, setTab] = useState<"about" | "projects" | "contact">(
+        (externalTab as any) || "about"
+    );
+
     useEffect(() => {
         if (externalTab && externalTab !== tab) setTab(externalTab as any);
     }, [externalTab]);
@@ -26,17 +58,19 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                         key={t}
                         onClick={() => changeTab(t)}
                         className={
-                            "px-3 py-2 rounded-t-lg border-x border-t text-sm" + 
+                            "px-3 py-2 rounded-t-lg border-x border-t text-sm " +
                             (tab === t
                                 ? "bg-zinc-900 border-zinc-700 text-zinc-100"
                                 : "bg-zinc-950 border-zinc-900 text-zinc-400 hover:text-zinc-200")
                         }
-                        >{t}.tsx</button>
+                    >
+                        {t}.tsx
+                    </button>
                 ))}
-                <div className="flex-1 border-b border-zinc-800"/>
+                <div className="flex-1 border-b border-zinc-800" />
             </div>
 
-            <div className="border border-zinc-800 rouded-b-xl rounded-tr-xl bg-zinc-950/60">
+            <div className="border border-zinc-800 rounded-b-xl rounded-tr-xl bg-zinc-950/60">
                 <AnimatePresence mode="wait">
                     {tab === "about" && (
                         <motion.div
@@ -44,21 +78,37 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.3}}
+                            transition={{ duration: 0.3 }}
                             className="p-6 text-zinc-300"
                         >
                             <p className="text-lg leading-relaxed">
-                                I'm Eddie, a software engineer who loves building interactive 
-                                systems, smooth UIs, and data-driven tools. I enjoy creating 
+                                I’m Eddie — a software engineer who loves building interactive
+                                systems, smooth UIs, and data-driven tools. I enjoy creating
                                 experiences that feel alive, expressive, and performant.
                             </p>
 
                             <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
-                                
-                                <TechList title="Languages" items={["TypeScript", "Java", "Python", "C#"]} />
-                                <TechList title="Frameworks" items={["Next.js", "React"]} />
-                                <TechList title="Tools" items={["Tailwind", "Framer Motion", "Git"]} />
-                                <TechList title="Focus" items={["UX polish", "Real-Time data", "Performance", "Interactivity"]} />
+                                <TechList
+                                    title="Languages"
+                                    items={["TypeScript", "Java", "Python", "Lua"]}
+                                />
+                                <TechList
+                                    title="Frameworks"
+                                    items={["Next.js", "React", "Forge", "Roblox Studio"]}
+                                />
+                                <TechList
+                                    title="Tools"
+                                    items={["Tailwind", "Framer Motion", "Git", "Vercel"]}
+                                />
+                                <TechList
+                                    title="Focus"
+                                    items={[
+                                        "Gameplay systems",
+                                        "UX polish",
+                                        "Real-time data",
+                                        "Performance",
+                                    ]}
+                                />
                             </div>
                         </motion.div>
                     )}
@@ -72,33 +122,34 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             transition={{ duration: 0.3 }}
                             className="p-6 grid md:grid-cols-2 gap-6"
                         >
-                        {PROJECTS.map((p, i) => (
-                            <motion.div
-                                key={p.title}
-                                initial={{ opacity: 0, y: 8 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.3, delay: i * 0.05 }}
-                                className="group rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 hover:shadow-lg hover:shadow-black/30"
-                            >
-                            <h3 className="text-lg font-semibold text-zinc-100">{p.title}</h3>
-                            <p className="text-zinc-300 mt-2">{p.description}</p>
-
-                            <div className="flex flex-warp gap-2 mt-3">
-                                {p.stack.map((s) => (
-                                    <span
-                                        key={s}
-                                        className="text-[11] px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
-                                    >
-                                        {s}
-                                    </span>
-                                ))}
-                            </div>
-                            </motion.div>
-                        ))}
-                        
+                            {PROJECTS.map((p, i) => (
+                                <motion.div
+                                    key={p.title}
+                                    initial={{ opacity: 0, y: 8 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.3, delay: i * 0.05 }}
+                                    className="group rounded-2xl border border-zinc-800 bg-zinc-900/50 p-5 hover:shadow-lg hover:shadow-black/30"
+                                >
+                                    <h3 className="text-lg font-semibold text-zinc-100">
+                                        {p.title}
+                                    </h3>
+                                    <p className="text-zinc-300 mt-2">{p.description}</p>
+                                    <div className="flex flex-wrap gap-2 mt-3">
+                                        {p.stack.map((s) => (
+                                            <span
+                                                key={s}
+                                                className="text-[11px] px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
+                                            >
+                                                {s}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ))}
                         </motion.div>
                     )}
+
                     {tab === "contact" && (
                         <motion.div
                             key="contact"
@@ -108,7 +159,7 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             transition={{ duration: 0.3 }}
                             className="p-6"
                         >
-                            <p className="text-zinc-300 mb.4">
+                            <p className="text-zinc-300 mb-4">
                                 Want to collaborate or just say hi?
                             </p>
                             <a
@@ -119,28 +170,29 @@ export default function EditorTabs({externalTab, onTabChange}: {externalTab?: st
                             </a>
                         </motion.div>
                     )}
-
-
                 </AnimatePresence>
             </div>
         </div>
-    )
+    );
 }
 
-function TechList({ title, items }: { title:string; items:string[]}) {
+// Reusable TechList component
+function TechList({ title, items }: { title: string; items: string[] }) {
     return (
         <motion.div
-            initial={{ opacity: 0, y:10 }}
-            whileInView={{ opacity: 1, y:0 }}
-            viewport={{ once:true, amount:0.3 }}
-            transition={{ duration:0.4 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4 }}
         >
-            <h4 className="text-zinc-200 font-semibold text-sm tracking-wide">{title}</h4>
+            <h4 className="text-zinc-200 font-semibold text-sm tracking-wide">
+                {title}
+            </h4>
             <ul className="mt-2 flex flex-wrap gap-2">
                 {items.map((x) => (
                     <li
-                     key={x}
-                     className="text-xs px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
+                        key={x}
+                        className="text-xs px-2 py-1 rounded bg-zinc-800/60 border border-zinc-700 text-zinc-300"
                     >
                         {x}
                     </li>
