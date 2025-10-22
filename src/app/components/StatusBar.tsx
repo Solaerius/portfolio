@@ -42,7 +42,7 @@ export default function StatusBar({
                             ? "..."
                             : weather.error
                             ? "Weather unavailable"
-                            : '${weather.desc} ${Math.round(weather.tempC!)} °C'}
+                            : `${weather.desc} ${Math.round(weather.tempC!)} °C`}
                     </span>
                 </div>
 
@@ -53,7 +53,7 @@ export default function StatusBar({
                             ? "..."
                             : gh.error
                             ? "github n/a"
-                            : '${gh.publicRepos} repos / ${gh.stars}★ / ${gh.followers} followers'}
+                            : `${gh.publicRepos} repos / ${gh.stars}★ / ${gh.followers} followers`}
                     </span>
                 </div>
             </div>

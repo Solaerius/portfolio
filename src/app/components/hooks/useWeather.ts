@@ -16,9 +16,9 @@ export default function useWeather(city: string) {
             try {
                 const key = process.env.NEXT_PUBLIC_OWN_KEY;
                 if (!key) throw new Error("Missing weather key");
-                const url = 'https://api.openweathermap.org/data/2.5/weather?q={encodeURIComponent()}&appid=${key}&units=metric';
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${key}&units=metric`;
                 const r = await fetch(url);
-                if(!r.ok) throw new Error('Weather API status ${r.status}');
+                if(!r.ok) throw new Error(`Weather API status ${r.status}`);
                 const j = await r.json();
                 if(!cancelled) {
                     setState({
