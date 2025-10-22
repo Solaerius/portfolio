@@ -38,7 +38,6 @@ export default function CommandPalatte({ onCommand }: CommandPalatteProps) {
 
     return (
     <>
-      {/* Inline bar in header */}
       {!open && (
         <div
           onClick={() => setOpen(true)}
